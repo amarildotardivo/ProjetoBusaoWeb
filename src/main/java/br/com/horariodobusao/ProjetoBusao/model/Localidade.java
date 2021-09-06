@@ -5,6 +5,7 @@ import java.util.*;
 public class Localidade extends Trajeto{
     private int id;
     private List<Cidade> cidade;
+    private String horario;
 
     public int getId() {
         return id;
@@ -21,6 +22,16 @@ public class Localidade extends Trajeto{
     public void setCidade(List<Cidade> cidade) {
         this.cidade = cidade;
     }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+    
+    
 
     @Override
     public int hashCode() {
