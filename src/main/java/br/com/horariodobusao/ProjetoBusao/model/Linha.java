@@ -7,7 +7,9 @@ public class Linha implements Serializable{
     private static final long serialVersionUID = 1L;
     
     private int id;
-    private List<Trajeto> trajeto;
+    private List<Trajeto> trajetos;
+    
+    private Funcionario funcionario;
 
     public int getId() {
         return id;
@@ -18,13 +20,22 @@ public class Linha implements Serializable{
     }
 
     public List<Trajeto> getTrajeto() {
-        return trajeto;
+        return trajetos;
     }
 
     public void setTrajeto(List<Trajeto> trajeto) {
-        this.trajeto = trajeto;
+        this.trajetos = trajeto;
     }
 
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;

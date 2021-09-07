@@ -7,6 +7,8 @@ public class Cidade implements Serializable{
     
     private int id;
     private String nome;
+    
+    private Localidade localidade;
 
     public int getId() {
         return id;
@@ -24,6 +26,14 @@ public class Cidade implements Serializable{
         this.nome = nome;
     }
 
+    public Localidade getLocalidade() {
+        return localidade;
+    }
+
+    public void setLocalidade(Localidade localidade) {
+        this.localidade = localidade;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

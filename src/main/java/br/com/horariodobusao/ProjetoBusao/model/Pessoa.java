@@ -8,6 +8,8 @@ public abstract class Pessoa implements Serializable{
     
     private int id;
     private String nome, email, senha, telefone, cpf, endereco;
+    
+    
 
     public int getId() {
         return id;

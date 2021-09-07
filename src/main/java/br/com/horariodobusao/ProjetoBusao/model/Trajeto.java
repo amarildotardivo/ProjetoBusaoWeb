@@ -1,12 +1,17 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
 import java.util.*;
+import java.io.Serializable;
 
 
-public class Trajeto {
+public class Trajeto implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     private int id;
     private List<Localidade> localidades;
     private TipoOpcaoEnum opcao;
+    
+    private Linha linha;
 
     public int getId() {
         return id;
@@ -27,11 +32,21 @@ public class Trajeto {
     public TipoOpcaoEnum getOpcao() {
         return opcao;
     }
-
+    
     public void setOpcao(TipoOpcaoEnum opcao) {
         this.opcao = opcao;
     }
 
+    public Linha getLinha() {
+        return linha;
+    }
+
+    public void setLinha(Linha linha) {
+        this.linha = linha;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;

@@ -1,11 +1,16 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
 import java.util.*;
+import java.io.Serializable;
 
-public class Localidade extends Trajeto{
+public class Localidade implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     private int id;
-    private List<Cidade> cidade;
+    private List<Cidade> cidades;
     private String horario;
+    
+    private Trajeto trajeto;
 
     public int getId() {
         return id;
@@ -16,11 +21,11 @@ public class Localidade extends Trajeto{
     }
 
     public List<Cidade> getCidade() {
-        return cidade;
+        return cidades;
     }
 
     public void setCidade(List<Cidade> cidade) {
-        this.cidade = cidade;
+        this.cidades = cidade;
     }
 
     public String getHorario() {
@@ -29,6 +34,14 @@ public class Localidade extends Trajeto{
 
     public void setHorario(String horario) {
         this.horario = horario;
+    }
+
+    public Trajeto getTrajeto() {
+        return trajeto;
+    }
+
+    public void setTrajeto(Trajeto trajeto) {
+        this.trajeto = trajeto;
     }
     
     
