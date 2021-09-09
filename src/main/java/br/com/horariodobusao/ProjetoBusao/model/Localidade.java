@@ -2,14 +2,18 @@ package br.com.horariodobusao.ProjetoBusao.model;
 
 import java.util.*;
 import java.io.Serializable;
+import javax.persistence.*;
 
+@Entity
 public class Localidade implements Serializable{
     private static final long serialVersionUID = 1L;
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private List<Cidade> cidades;
+    @Column(nullable = false, updatable = true, unique = false, length = 5)
     private String horario;
     
+    private List<Cidade> cidades;        
     private Trajeto trajeto;
 
     public int getId() {

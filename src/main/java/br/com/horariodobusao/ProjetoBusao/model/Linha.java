@@ -2,11 +2,15 @@ package br.com.horariodobusao.ProjetoBusao.model;
 
 import java.io.Serializable;
 import java.util.*;
+import javax.persistence.*;
 
+@Entity
 public class Linha implements Serializable{
     private static final long serialVersionUID = 1L;
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     private List<Trajeto> trajetos;
     
     private Funcionario funcionario;

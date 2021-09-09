@@ -1,11 +1,15 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
+@Entity
 public class Cidade implements Serializable{
     private static final long serialVersionUID = 1L;
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false, updatable = true, unique = true, length = 100)
     private String nome;
     
     private Localidade localidade;

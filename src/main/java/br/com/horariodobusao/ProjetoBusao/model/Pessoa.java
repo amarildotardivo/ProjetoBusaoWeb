@@ -2,12 +2,27 @@ package br.com.horariodobusao.ProjetoBusao.model;
 
 import java.io.Serializable;
 import java.util.*;
+import javax.persistence.*;
 
+@Entity
 public abstract class Pessoa implements Serializable{
     private static final long serialVersionUID = 1L;
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nome, email, senha, telefone, cpf, endereco;
+    @Column(nullable = false, updatable = true, length = 100)
+    private String nome;
+    @Column(nullable = false, updatable = true, unique = true, length = 100)
+    private String email;
+    @Column(nullable = false, updatable = true, unique = true, length = 100)
+    private String senha;
+    @Column(nullable = true, updatable = true, unique = true, length = 14)
+    private String telefone;
+    @Column(nullable = false, unique = true, updatable = true, length = 14)
+    private String cpf;
+    @Column(nullable = true, updatable = true, unique = false, length = 200)
+    private String endereco;
     
     
 
