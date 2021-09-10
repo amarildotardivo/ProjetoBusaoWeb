@@ -1,7 +1,9 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
+import com.fasterxml.jackson.annotation.*;
 import java.util.*;
 import java.io.Serializable;
+import java.time.*;
 import javax.persistence.*;
 
 @Entity
@@ -11,9 +13,15 @@ public class Localidade implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(nullable = false, updatable = true, unique = false, length = 5)
-    private String horario;
+    private LocalTime horario;
     
-    private List<Cidade> cidades;        
+    @JsonBackReference
+    @OneToOne(mappedBy = "localidade")
+    private Cidade cidade;
+    
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private Trajeto trajeto;
 
     public int getId() {
@@ -24,22 +32,24 @@ public class Localidade implements Serializable{
         this.id = id;
     }
 
-    public List<Cidade> getCidade() {
-        return cidades;
+    public Cidade getCidade() {
+        return cidade;
     }
 
-    public void setCidade(List<Cidade> cidade) {
-        this.cidades = cidade;
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 
-    public String getHorario() {
+    
+
+    public LocalTime getHorario() {
         return horario;
     }
 
-    public void setHorario(String horario) {
+    public void setHorario(LocalTime horario) {
         this.horario = horario;
     }
-
+    
     public Trajeto getTrajeto() {
         return trajeto;
     }
@@ -47,7 +57,6 @@ public class Localidade implements Serializable{
     public void setTrajeto(Trajeto trajeto) {
         this.trajeto = trajeto;
     }
-    
     
 
     @Override

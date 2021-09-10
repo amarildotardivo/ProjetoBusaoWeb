@@ -1,8 +1,10 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
+import com.fasterxml.jackson.annotation.*;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
+
 
 @Entity
 public class Linha implements Serializable{
@@ -11,8 +13,14 @@ public class Linha implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    private List<Trajeto> trajetos;
+    @JsonBackReference
+    @ElementCollection(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "linha", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Trajeto> trajetos = new ArrayList<>();
     
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private Funcionario funcionario;
 
     public int getId() {

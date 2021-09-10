@@ -1,11 +1,16 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
 import java.util.*;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 
 @Entity
 public class Funcionario extends Pessoa{
-    private List<Linha> linhas;
+    
+    @JsonBackReference
+    @ElementCollection(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "funcionario")
+    private List<Linha> linhas = new ArrayList<>();
 
     public List<Linha> getLinhas() {
         return linhas;

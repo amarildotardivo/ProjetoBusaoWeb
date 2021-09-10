@@ -1,5 +1,6 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
+import com.fasterxml.jackson.annotation.*;
 import java.util.*;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -7,15 +8,23 @@ import javax.persistence.*;
 @Entity
 public class Trajeto implements Serializable{
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     @Column(nullable = false, updatable = false, unique = true, length = 100)
     @Enumerated(EnumType.STRING)
     private TipoOpcaoEnum opcao;
     
-    private List<Localidade> localidades;
-        
+    @JsonBackReference
+    @ElementCollection(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "trajeto")
+    private List<Localidade> localidades = new ArrayList<>();
+    
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private Linha linha;
 
     public int getId() {

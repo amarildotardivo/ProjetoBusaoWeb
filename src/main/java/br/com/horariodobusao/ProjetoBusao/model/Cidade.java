@@ -2,6 +2,7 @@ package br.com.horariodobusao.ProjetoBusao.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 
 @Entity
 public class Cidade implements Serializable{
@@ -12,6 +13,9 @@ public class Cidade implements Serializable{
     @Column(nullable = false, updatable = true, unique = true, length = 100)
     private String nome;
     
+    @JsonManagedReference
+    @OneToOne
+    @JoinColumn(nullable = false)
     private Localidade localidade;
 
     public int getId() {
