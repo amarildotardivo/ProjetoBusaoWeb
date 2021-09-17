@@ -12,14 +12,14 @@ public class Localidade implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     @Column(nullable = false, updatable = true, unique = false, length = 5)
     private LocalTime horario;
     
-    @JsonBackReference
-    @OneToOne(mappedBy = "localidade")
+    @JsonIgnore
+    @ManyToOne
     private Cidade cidade;
     
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(nullable = false)
     private Trajeto trajeto;

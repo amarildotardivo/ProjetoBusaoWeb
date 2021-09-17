@@ -13,12 +13,11 @@ public class Linha implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @JsonBackReference
+    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "linha", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Trajeto> trajetos = new ArrayList<>();
     
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(nullable = false)
     private Funcionario funcionario;

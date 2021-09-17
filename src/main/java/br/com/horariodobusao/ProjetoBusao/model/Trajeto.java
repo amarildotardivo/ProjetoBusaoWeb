@@ -17,12 +17,11 @@ public class Trajeto implements Serializable{
     @Enumerated(EnumType.STRING)
     private TipoOpcaoEnum opcao;
     
-    @JsonBackReference
+    @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "trajeto")
     private List<Localidade> localidades = new ArrayList<>();
     
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(nullable = false)
     private Linha linha;

@@ -3,20 +3,22 @@ package br.com.horariodobusao.ProjetoBusao.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.*;
+import java.util.*;
 
 @Entity
 public class Cidade implements Serializable{
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     @Column(nullable = false, updatable = true, unique = true, length = 100)
     private String nome;
     
-    @JsonManagedReference
-    @OneToOne
+    @OneToMany
     @JoinColumn(nullable = false)
-    private Localidade localidade;
+    private List<Localidade> localidade = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -34,11 +36,11 @@ public class Cidade implements Serializable{
         this.nome = nome;
     }
 
-    public Localidade getLocalidade() {
+    public List<Localidade> getLocalidade() {
         return localidade;
     }
 
-    public void setLocalidade(Localidade localidade) {
+    public void setLocalidade(List<Localidade> localidade) {
         this.localidade = localidade;
     }
     
