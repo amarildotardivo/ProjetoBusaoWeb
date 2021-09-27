@@ -1,10 +1,11 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
 import com.fasterxml.jackson.annotation.*;
-import java.util.*;
 import java.io.Serializable;
 import java.time.*;
 import javax.persistence.*;
+import javax.validation.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Localidade implements Serializable{
@@ -14,14 +15,19 @@ public class Localidade implements Serializable{
     private int id;
     
     @Column(nullable = false, updatable = true, unique = false, length = 5)
+    @NotNull(message = "Horário obrigatório.")
     private LocalTime horario;
     
-    @JsonIgnore
+    @JsonIgnore 
     @ManyToOne
+    @NotNull(message = "Cidade obrigatória.")
+    @Valid
     private Cidade cidade;
     
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(nullable = false)
+    @NotNull(message = "Trajeto obrigatório.")
+    @Valid
     private Trajeto trajeto;
 
     public int getId() {

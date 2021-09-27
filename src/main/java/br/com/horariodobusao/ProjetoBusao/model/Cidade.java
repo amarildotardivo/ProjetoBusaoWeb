@@ -2,8 +2,8 @@ package br.com.horariodobusao.ProjetoBusao.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import com.fasterxml.jackson.annotation.*;
 import java.util.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Cidade implements Serializable{
@@ -16,7 +16,7 @@ public class Cidade implements Serializable{
     @Column(nullable = false, updatable = true, unique = true, length = 100)
     private String nome;
     
-    @OneToMany
+    @OneToMany(mappedBy = "cidade")
     @JoinColumn(nullable = false)
     private List<Localidade> localidade = new ArrayList<>();
 

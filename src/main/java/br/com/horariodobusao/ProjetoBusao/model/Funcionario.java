@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.*;
 public class Funcionario extends Pessoa{
     
     @JsonIgnore
-    @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "funcionario")
     private List<Linha> linhas = new ArrayList<>();
 

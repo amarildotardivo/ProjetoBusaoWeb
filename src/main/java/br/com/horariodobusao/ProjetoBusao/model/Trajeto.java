@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.*;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Trajeto implements Serializable{
@@ -15,15 +17,18 @@ public class Trajeto implements Serializable{
     
     @Column(nullable = false, updatable = false, unique = true, length = 100)
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Opção obrigatória.")
     private TipoOpcaoEnum opcao;
     
     @JsonIgnore
-    @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "trajeto")
+    @Size(min = 2, message = "O Trajeto deve ter no mínimo 2 localidades.")
     private List<Localidade> localidades = new ArrayList<>();
     
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NotNull(message = "Linha obrigatória.")
+    @Valid
     private Linha linha;
 
     public int getId() {

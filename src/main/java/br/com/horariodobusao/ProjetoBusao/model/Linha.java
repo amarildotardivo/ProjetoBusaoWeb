@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.*;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
-
+import javax.validation.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Linha implements Serializable{
@@ -14,12 +15,14 @@ public class Linha implements Serializable{
     private int id;
     
     @JsonIgnore
-    @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "linha", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Size(min = 1, message = "A linha deve ter no mínimo 1 Trajeto.")
     private List<Trajeto> trajetos = new ArrayList<>();
     
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NotNull(message = "Funcionário obrigatório.")
+    @Valid
     private Funcionario funcionario;
 
     public int getId() {

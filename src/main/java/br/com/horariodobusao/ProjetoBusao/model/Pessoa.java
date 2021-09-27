@@ -3,6 +3,10 @@ package br.com.horariodobusao.ProjetoBusao.model;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -14,21 +18,34 @@ public abstract class Pessoa implements Serializable{
     private int id;
     
     @Column(nullable = false, updatable = true, length = 100)
+    @NotBlank(message = "Nome obrigatório.")
+    @Length(min = 10, message = "Nome deve ter no mínimo 10 caracteres.")
+    @Length(max = 100, message = "Nome deve ter no máximo 100 caracteres.")
     private String nome;
     
     @Column(nullable = false, updatable = true, unique = true, length = 100)
+    @NotBlank(message = "Email obrigatório.")
+    @Length(min = 10, message = "Email deve ter no mínimo 10 caracteres.")
+    @Length(max = 100, message = "Email deve ter no máximo 100 caracteres.")
+    @Email
     private String email;
     
     @Column(nullable = false, updatable = true, unique = true, length = 100)
+    @NotBlank(message = "Senha obrigatória.")
+    @Length(min = 8, message = "Senha deve ter no mínimo 10 caracteres.")
+    @Length(max = 100, message = "Senha deve ter no máximo 100 caracteres.")
     private String senha;
     
     @Column(nullable = true, updatable = true, unique = true, length = 14)
+    @Length(min = 13, max = 14, message = "Telefone deve ter 13 ou 14 caracteres (Ex.: Residencial: (22)9999-9999 ou Celular: (22)99999-9999.")
     private String telefone;
     
     @Column(nullable = false, unique = true, updatable = true, length = 14)
+    @CPF(message = "CPF inválido.")
     private String cpf;
     
     @Column(nullable = true, updatable = true, unique = false, length = 200)
+    @Length(max = 14, message = "Endereço deve ter no máximo 200 caracteres.")
     private String endereco;
     
     
