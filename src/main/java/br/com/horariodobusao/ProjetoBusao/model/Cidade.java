@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.*;
 
 @Entity
 public class Cidade implements Serializable{
@@ -14,10 +16,15 @@ public class Cidade implements Serializable{
     private int id;
     
     @Column(nullable = false, updatable = true, unique = true, length = 100)
+    @NotBlank(message = "Nome obrigatório.")
+    @Length(min = 3, message = "Nome deve ter no mínimo 3 caracteres.")
+    @Length(max = 100, message = "Nome deve ter no máximo 100 caracteres.")
     private String nome;
     
     @OneToMany(mappedBy = "cidade")
     @JoinColumn(nullable = false)
+    //Não validei a lista de localidades, pois ela já foi validada na classe Trajeto
+    //Fiquei na dúvida
     private List<Localidade> localidade = new ArrayList<>();
 
     public int getId() {

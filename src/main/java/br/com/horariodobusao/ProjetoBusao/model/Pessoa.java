@@ -1,9 +1,9 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
+import br.com.horariodobusao.ProjetoBusao.model.annotation.*;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.*;
@@ -19,7 +19,7 @@ public abstract class Pessoa implements Serializable{
     
     @Column(nullable = false, updatable = true, length = 100)
     @NotBlank(message = "Nome obrigatório.")
-    @Length(min = 10, message = "Nome deve ter no mínimo 10 caracteres.")
+    @Length(min = 3, message = "Nome deve ter no mínimo 3 caracteres.")
     @Length(max = 100, message = "Nome deve ter no máximo 100 caracteres.")
     private String nome;
     
@@ -27,7 +27,7 @@ public abstract class Pessoa implements Serializable{
     @NotBlank(message = "Email obrigatório.")
     @Length(min = 10, message = "Email deve ter no mínimo 10 caracteres.")
     @Length(max = 100, message = "Email deve ter no máximo 100 caracteres.")
-    @Email
+    @EmailValidation
     private String email;
     
     @Column(nullable = false, updatable = true, unique = true, length = 100)
