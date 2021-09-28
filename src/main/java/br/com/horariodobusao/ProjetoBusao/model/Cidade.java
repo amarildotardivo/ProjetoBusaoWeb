@@ -3,7 +3,6 @@ package br.com.horariodobusao.ProjetoBusao.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
-import javax.validation.constraints.*;
 import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.*;
 
