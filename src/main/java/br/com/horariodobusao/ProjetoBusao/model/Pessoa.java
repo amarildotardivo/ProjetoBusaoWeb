@@ -34,6 +34,7 @@ public abstract class Pessoa implements Serializable{
     @NotBlank(message = "Senha obrigatória.")
     @Length(min = 8, message = "Senha deve ter no mínimo 10 caracteres.")
     @Length(max = 100, message = "Senha deve ter no máximo 100 caracteres.")
+    @PassValidation
     private String senha;
     
     @Column(nullable = true, updatable = true, unique = true, length = 14)

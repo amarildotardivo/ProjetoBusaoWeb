@@ -2,7 +2,7 @@ package br.com.horariodobusao.ProjetoBusao.model.annotation;
 
 import javax.validation.*;
 
-public class EmailValidator implements javax.validation.ConstraintValidator<EmailValidation, String>{
+public class EmailValidator implements ConstraintValidator<EmailValidation, String>{
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
