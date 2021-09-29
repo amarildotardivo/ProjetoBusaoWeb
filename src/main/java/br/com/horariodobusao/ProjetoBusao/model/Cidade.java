@@ -20,10 +20,10 @@ public class Cidade implements Serializable{
     @Length(max = 100, message = "Nome deve ter no máximo 100 caracteres.")
     private String nome;
     
-    @OneToMany(mappedBy = "cidade")
-    @JoinColumn(nullable = false)
     //Não validei a lista de localidades, pois ela já foi validada na classe Trajeto
     //Fiquei na dúvida
+    //@JoinColumn(nullable = false) - Retirado pois estava apresentando erro no BD
+    @OneToMany(mappedBy = "cidade")
     private List<Localidade> localidade = new ArrayList<>();
 
     public int getId() {
