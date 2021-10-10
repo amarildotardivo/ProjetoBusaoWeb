@@ -3,6 +3,7 @@ package br.com.horariodobusao.ProjetoBusao.model;
 import com.fasterxml.jackson.annotation.*;
 import java.io.Serializable;
 import java.time.*;
+import java.util.*;
 import javax.persistence.*;
 import javax.validation.*;
 import javax.validation.constraints.*;
@@ -12,7 +13,7 @@ public class Localidade implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     
     @Column(nullable = false, updatable = true, unique = false, length = 5)
     @NotNull(message = "Horário obrigatório.")
@@ -21,20 +22,18 @@ public class Localidade implements Serializable{
     @JsonIgnore 
     @ManyToOne
     @NotNull(message = "Cidade obrigatória.")
-    @Valid
     private Cidade cidade;
     
     @ManyToOne 
     @JoinColumn(nullable = false)
     @NotNull(message = "Trajeto obrigatório.")
-    @Valid
     private Trajeto trajeto;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,12 +62,11 @@ public class Localidade implements Serializable{
     public void setTrajeto(Trajeto trajeto) {
         this.trajeto = trajeto;
     }
-    
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 61 * hash + this.id;
+        hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -84,11 +82,14 @@ public class Localidade implements Serializable{
             return false;
         }
         final Localidade other = (Localidade) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+    
+
+    
     
     
 }

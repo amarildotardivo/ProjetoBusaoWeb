@@ -6,39 +6,55 @@ import java.util.*;
 import javax.persistence.*;
 import javax.validation.*;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Linha implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+    
+    @Column(nullable = false, updatable = true, length = 100)
+    @NotBlank(message = "Nome da Linha  obrigatório.")
+    @Length(min = 3, message = "Nome deve ter no mínimo 3 caracteres.")
+    @Length(max = 100, message = "Nome deve ter no máximo 100 caracteres.")
+    private String nomeLinha;
     
     @JsonIgnore
     @OneToMany(mappedBy = "linha", cascade = CascadeType.ALL, orphanRemoval = true)
     @Size(min = 1, message = "A linha deve ter no mínimo 1 Trajeto.")
+    @Valid
     private List<Trajeto> trajetos = new ArrayList<>();
     
     @ManyToOne
     @JoinColumn(nullable = false)
     @NotNull(message = "Funcionário obrigatório.")
-    @Valid
     private Funcionario funcionario;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public List<Trajeto> getTrajeto() {
+    public String getNomeLinha() {
+        return nomeLinha;
+    }
+
+    public void setNomeLinha(String nomeLinha) {
+        this.nomeLinha = nomeLinha;
+    }
+
+    public List<Trajeto> getTrajetos() {
         return trajetos;
     }
 
-    public void setTrajeto(List<Trajeto> trajeto) {
-        this.trajetos = trajeto;
+    public void setTrajetos(List<Trajeto> trajetos) {
+        this.trajetos = trajetos;
     }
 
     public Funcionario getFuncionario() {
@@ -48,12 +64,11 @@ public class Linha implements Serializable{
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + this.id;
+        hash = 17 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -69,11 +84,12 @@ public class Linha implements Serializable{
             return false;
         }
         final Linha other = (Linha) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+
     
     
 }

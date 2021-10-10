@@ -12,7 +12,7 @@ public class Cidade implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     
     @Column(nullable = false, updatable = true, unique = true, length = 100)
     @NotBlank(message = "Nome obrigatório.")
@@ -26,11 +26,11 @@ public class Cidade implements Serializable{
     @OneToMany(mappedBy = "cidade")
     private List<Localidade> localidade = new ArrayList<>();
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,11 +49,11 @@ public class Cidade implements Serializable{
     public void setLocalidade(List<Localidade> localidade) {
         this.localidade = localidade;
     }
-    
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + this.id;
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -69,11 +69,13 @@ public class Cidade implements Serializable{
             return false;
         }
         final Cidade other = (Cidade) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+    
+    
     
     
 }

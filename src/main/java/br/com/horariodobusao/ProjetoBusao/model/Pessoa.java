@@ -15,7 +15,7 @@ public abstract class Pessoa implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     
     @Column(nullable = false, updatable = true, length = 100)
     @NotBlank(message = "Nome obrigatório.")
@@ -46,16 +46,16 @@ public abstract class Pessoa implements Serializable{
     private String cpf;
     
     @Column(nullable = true, updatable = true, unique = false, length = 200)
-    @Length(max = 14, message = "Endereço deve ter no máximo 200 caracteres.")
+    @Length(max = 200, message = "Endereço deve ter no máximo 200 caracteres.")
     private String endereco;
     
     
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -109,14 +109,14 @@ public abstract class Pessoa implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 11 * hash + this.id;
-        hash = 11 * hash + Objects.hashCode(this.nome);
-        hash = 11 * hash + Objects.hashCode(this.email);
-        hash = 11 * hash + Objects.hashCode(this.senha);
-        hash = 11 * hash + Objects.hashCode(this.telefone);
-        hash = 11 * hash + Objects.hashCode(this.cpf);
-        hash = 11 * hash + Objects.hashCode(this.endereco);
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + Objects.hashCode(this.nome);
+        hash = 73 * hash + Objects.hashCode(this.email);
+        hash = 73 * hash + Objects.hashCode(this.senha);
+        hash = 73 * hash + Objects.hashCode(this.telefone);
+        hash = 73 * hash + Objects.hashCode(this.cpf);
+        hash = 73 * hash + Objects.hashCode(this.endereco);
         return hash;
     }
 
@@ -132,9 +132,6 @@ public abstract class Pessoa implements Serializable{
             return false;
         }
         final Pessoa other = (Pessoa) obj;
-        if (this.id != other.id) {
-            return false;
-        }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
@@ -153,11 +150,12 @@ public abstract class Pessoa implements Serializable{
         if (!Objects.equals(this.endereco, other.endereco)) {
             return false;
         }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         return true;
     }
 
-    
-    
     
     
 }

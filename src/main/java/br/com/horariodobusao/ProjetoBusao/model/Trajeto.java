@@ -13,7 +13,7 @@ public class Trajeto implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     
     @Column(nullable = false, updatable = false, unique = true, length = 100)
     @Enumerated(EnumType.STRING)
@@ -23,6 +23,7 @@ public class Trajeto implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy = "trajeto")
     @Size(min = 2, message = "O Trajeto deve ter no mínimo 2 localidades.")
+    @Valid
     private List<Localidade> localidades = new ArrayList<>();
     
     @ManyToOne
@@ -31,11 +32,11 @@ public class Trajeto implements Serializable{
     @Valid
     private Linha linha;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,12 +64,10 @@ public class Trajeto implements Serializable{
         this.linha = linha;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + this.id;
+        hash = 79 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -84,11 +83,15 @@ public class Trajeto implements Serializable{
             return false;
         }
         final Trajeto other = (Trajeto) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+
+    
+    
+   
     
     
 }
