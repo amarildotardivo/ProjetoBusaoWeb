@@ -45,9 +45,9 @@ public class ProjetoBusaoApplication implements CommandLineRunner{
 
         //Funcionario
         Funcionario f1 = new Funcionario();
-        f1.setNome("Mathes");
+        f1.setNome("Mateus");
         f1.setEmail("mateus@gmail.com");
-        f1.setSenha("$Rloucura19083");
+        f1.setSenha("$Rteste19083");
         f1.setEndereco("Rua Lyra Reis Salles, 91 - Centro - Italva");
         f1.setCpf("869.250.850-01");
         f1.setTelefone("(22)99854-9159");
