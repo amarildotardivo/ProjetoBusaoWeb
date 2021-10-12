@@ -42,6 +42,7 @@ public abstract class Pessoa implements Serializable{
     private String telefone;
     
     @Column(nullable = false, unique = true, updatable = true, length = 14)
+    @NotBlank(message = "CPF obrigatório.")
     @CPF(message = "CPF inválido.")
     private String cpf;
     

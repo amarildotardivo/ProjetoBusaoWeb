@@ -54,4 +54,5 @@ public class LinhaService {
             throw new RuntimeException("Falha ao deletar linha "+ obj.getNomeLinha()+ ". " + e);
         }
     }
+    
 }

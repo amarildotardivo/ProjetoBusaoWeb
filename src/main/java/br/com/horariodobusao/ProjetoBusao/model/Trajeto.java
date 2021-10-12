@@ -21,7 +21,7 @@ public class Trajeto implements Serializable{
     private TipoOpcaoEnum opcao;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "trajeto")
+    @OneToMany(mappedBy = "trajeto", cascade = CascadeType.ALL, orphanRemoval = true)
     @Size(min = 2, message = "O Trajeto deve ter no mínimo 2 localidades.")
     @Valid
     private List<Localidade> localidades = new ArrayList<>();

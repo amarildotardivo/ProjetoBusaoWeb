@@ -25,7 +25,7 @@ public class TrajetoService {
     public Trajeto findById(Long id){
         Optional<Trajeto> result = repo.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Trajeto não encontrada.");
+            throw new RuntimeException("Trajeto não encontrado.");
         }
         return result.get();
     }
