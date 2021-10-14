@@ -25,7 +25,7 @@ public class FuncionarioService {
     public Funcionario findById(Long id){
         Optional<Funcionario> result = repo.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Funcionario não encontrado.");
+            throw new RuntimeException("Funcionário não encontrado.");
         }
         return result.get();
     }
@@ -37,7 +37,7 @@ public class FuncionarioService {
         try{
             return repo.save(f);
         }catch(Exception e){
-            throw new RuntimeException("Falha ao salvar Funcionario. " + e);
+            throw new RuntimeException("Falha ao salvar Funcionário. " + e);
         }
     }
     
@@ -52,28 +52,20 @@ public class FuncionarioService {
             f.setCpf(obj.getCpf());
             return repo.save(f);
         }catch(Exception e){
-            throw new RuntimeException("Falha ao salvar Funcionario. " + e);
+            throw new RuntimeException("Falha ao salvar Funcionário. " + e);
         }
     }
     
     public void delete(Long id){
-        int cont = 0;
         
         Funcionario obj = findById(id);
-        List<Funcionario> func = new ArrayList<>();
         
-        for(Funcionario f: func){
-            cont++;
-        }
+        verificaQuantidadePessoas();
         
         try{
-            if(cont > 1){
-                repo.delete(obj);
-            }else{
-                throw new RuntimeException("Não é possível excluir o Funcionario, pois só existe 1 Funcionario. Crei outro Funcionario para realizar esta excluisão.");
-            }
+            repo.delete(obj);
         }catch(Exception ex){
-            throw new RuntimeException("Falha ao deletar o Funcionario.");
+            throw new RuntimeException("Falha ao deletar o Funcionário.");
         }
     }
     
@@ -93,6 +85,16 @@ public class FuncionarioService {
                 throw new RuntimeException("Nova Senha e Confirmar Nova Senha, não são iguais!");
             }
             obj.setSenha(novaSenha);
+        }
+    }
+    
+    //verifica se a quantidade de Funcionários é menor que 2, pois deve existir sempre 1 Funcionário
+    private void verificaQuantidadePessoas(){     
+        
+        List<Funcionario> func = findAll();
+        
+        if(func.size() < 2){
+            throw new RuntimeException("Não é possível excluir o Funcionário, pois só existe 1 Funcionário. Crie outro Funcionário para realizar esta exclusão.");
         }
     }
 }

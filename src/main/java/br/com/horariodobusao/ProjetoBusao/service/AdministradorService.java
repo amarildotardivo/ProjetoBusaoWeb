@@ -57,21 +57,14 @@ public class AdministradorService {
     }
     
     public void delete(Long id){
-        int cont = 0;
         
         Administrador obj = findById(id);
-        List<Administrador> adms = new ArrayList<>();
         
-        for(Administrador a: adms){
-            cont++;
-        }
+        verificaQuantidadePessoas();
         
-        try{
-            if(cont > 1){
-                repo.delete(obj);
-            }else{
-                throw new RuntimeException("Não é possível excluir o Administrador, pois só existe 1 Administrador. Crei outro Administrador para realizar esta excluisão.");
-            }
+        try{            
+            repo.delete(obj);
+            
         }catch(Exception ex){
             throw new RuntimeException("Falha ao deletar o Administrador.");
         }
@@ -95,4 +88,14 @@ public class AdministradorService {
             obj.setSenha(novaSenha);
         }
     } 
+    
+    //verifica se a quantidade de administradores é menor que 2, pois deve existir sempre 1 administrador
+    private void verificaQuantidadePessoas(){     
+        
+        List<Administrador> adms = findAll();
+        
+        if(adms.size() < 2){
+            throw new RuntimeException("Não é possível excluir o Administrador, pois só existe 1 Administrador. Crie outro Administrador para realizar esta exclusão.");
+        }
+    }
 }

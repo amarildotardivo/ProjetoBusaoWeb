@@ -18,10 +18,6 @@ public class ProjetoBusaoApplication implements CommandLineRunner{
     @Autowired
     private LinhaRepository linhaRepo;
     @Autowired
-    private TrajetoRepository trajetoRepo;
-    @Autowired
-    private LocalidadeRepository localRepo;
-    @Autowired
     private CidadeRepository cidadeRepo;
     
     
@@ -100,15 +96,7 @@ public class ProjetoBusaoApplication implements CommandLineRunner{
         t1.setLocalidades(List.of(loc1, loc2));
         
         //save linha
-        linhaRepo.save(l1);
-        
-        //save trajeto
-        trajetoRepo.save(t1);
-        
-        //save localidade
-        localRepo.save(loc1);
-        localRepo.save(loc2);
-        
+        linhaRepo.save(l1);        
         
     }
 
