@@ -39,7 +39,6 @@ public class CidadeService {
     }
     
     public Cidade update(Cidade c){
-        verificarExclusaoCidadeComLocalidade(c);
         
         try{
             return repo.save(c);
@@ -50,8 +49,9 @@ public class CidadeService {
     
     public void delete(Long id){
         Cidade obj = findById(id);
+        List<Localidade> loc = obj.getLocalidade();
         
-        verificarExclusaoCidadeComLocalidade(obj);
+        verificaCidadeEmLocalidade(obj.getId(), loc);
         
         try{
             repo.delete(obj);
@@ -59,14 +59,13 @@ public class CidadeService {
             throw new RuntimeException("Falha ao deletar Cidade. " + e);
         }
     }
-    
-    private void verificarExclusaoCidadeComLocalidade(Cidade c){
-        List<Localidade> localidades = new ArrayList<>();
-        
-        for(Localidade l: localidades){
-            if(l.getCidade().equals(c)){
-                throw new RuntimeException("Não é possível excluir a cidade, pois está cadastrada em uma Linha.");
+
+    private void verificaCidadeEmLocalidade(Long idCidade, List<Localidade> loc) {
+        for(Localidade l : loc){
+            if(l.getCidade().getId() == idCidade){
+                throw new RuntimeException("Não é possível excluir a cidade, pois ela faz parte de 1 ou mais linhas!");
             }
         }
+        
     }
 }

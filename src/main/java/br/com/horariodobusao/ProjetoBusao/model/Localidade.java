@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.time.*;
 import java.util.*;
 import javax.persistence.*;
-import javax.validation.*;
 import javax.validation.constraints.*;
 
 @Entity

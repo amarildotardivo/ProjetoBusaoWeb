@@ -50,6 +50,8 @@ public class AdministradorService {
         
         try{
             adm.setCpf(obj.getCpf());
+            adm.setEmail(obj.getEmail());
+            adm.setSenha(obj.getSenha());
             return repo.save(adm);
         }catch(Exception e){
             throw new RuntimeException("Falha ao salvar Administrador. " + e);
