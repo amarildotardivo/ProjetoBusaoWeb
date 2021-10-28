@@ -22,8 +22,8 @@ public class Linha implements Serializable{
     @Length(max = 100, message = "Nome deve ter no máximo 100 caracteres.")
     private String nomeLinha;
     
-    @JsonIgnore
-    @OneToMany(mappedBy = "linha", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(nullable = false)
     @Size(min = 1, message = "A linha deve ter no mínimo 1 Trajeto.")
     @Valid
     private List<Trajeto> trajetos = new ArrayList<>();

@@ -1,6 +1,7 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
 import br.com.horariodobusao.ProjetoBusao.model.annotation.*;
+import com.fasterxml.jackson.annotation.*;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.*;
 
 @Entity
+@JsonIgnoreProperties(value = "senha", allowGetters = false, allowSetters = true)
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pessoa implements Serializable{
     private static final long serialVersionUID = 1L;
@@ -37,7 +39,7 @@ public abstract class Pessoa implements Serializable{
     @PassValidation
     private String senha;
     
-    @Column(nullable = true, updatable = true, unique = true, length = 14)
+    @Column(nullable = true, updatable = true, length = 14)
     @Length(min = 13, max = 14, message = "Telefone deve ter 13 ou 14 caracteres (Ex.: Residencial: (22)9999-9999 ou Celular: (22)99999-9999.")
     private String telefone;
     

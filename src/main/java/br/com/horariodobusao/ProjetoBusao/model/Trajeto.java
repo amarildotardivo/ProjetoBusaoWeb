@@ -20,17 +20,18 @@ public class Trajeto implements Serializable{
     @NotNull(message = "Opção obrigatória.")
     private TipoOpcaoEnum opcao;
     
-    @JsonIgnore
-    @OneToMany(mappedBy = "trajeto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(nullable = false)
     @Size(min = 2, message = "O Trajeto deve ter no mínimo 2 localidades.")
     @Valid
     private List<Localidade> localidades = new ArrayList<>();
     
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    @NotNull(message = "Linha obrigatória.")
-    @Valid
-    private Linha linha;
+//    @JsonIgnore
+//    @ManyToOne
+//    @JoinColumn(nullable = false)
+//    @NotNull(message = "Linha obrigatória.")
+//    @Valid
+//    private Linha linha;
 
     public Long getId() {
         return id;
@@ -56,13 +57,13 @@ public class Trajeto implements Serializable{
         this.opcao = opcao;
     }
 
-    public Linha getLinha() {
-        return linha;
-    }
-
-    public void setLinha(Linha linha) {
-        this.linha = linha;
-    }
+//    public Linha getLinha() {
+//        return linha;
+//    }
+//
+//    public void setLinha(Linha linha) {
+//        this.linha = linha;
+//    }
 
     @Override
     public int hashCode() {

@@ -13,20 +13,21 @@ public class Localidade implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false, updatable = true, unique = false, length = 5)
     @NotNull(message = "Horário obrigatório.")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime horario;
     
-    @JsonIgnore 
     @ManyToOne
     @NotNull(message = "Cidade obrigatória.")
     private Cidade cidade;
     
-    @ManyToOne 
-    @JoinColumn(nullable = false)
-    @NotNull(message = "Trajeto obrigatório.")
-    private Trajeto trajeto;
+//    @JsonIgnore
+//    @ManyToOne 
+//    @JoinColumn(nullable = false)
+//    @NotNull(message = "Trajeto obrigatório.")
+//    private Trajeto trajeto;
 
     public Long getId() {
         return id;
@@ -54,13 +55,13 @@ public class Localidade implements Serializable{
         this.horario = horario;
     }
     
-    public Trajeto getTrajeto() {
-        return trajeto;
-    }
-
-    public void setTrajeto(Trajeto trajeto) {
-        this.trajeto = trajeto;
-    }
+//    public Trajeto getTrajeto() {
+//        return trajeto;
+//    }
+//
+//    public void setTrajeto(Trajeto trajeto) {
+//        this.trajeto = trajeto;
+//    }
 
     @Override
     public int hashCode() {

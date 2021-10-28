@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdministradorController {
     @Autowired
     private AdministradorService service;
-    
+
     @GetMapping
     public ResponseEntity getAll(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page, 

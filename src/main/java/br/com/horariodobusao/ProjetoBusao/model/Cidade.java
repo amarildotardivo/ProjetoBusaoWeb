@@ -1,5 +1,6 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
+import com.fasterxml.jackson.annotation.*;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
@@ -23,6 +24,7 @@ public class Cidade implements Serializable{
     //Não validei a lista de localidades, pois ela já foi validada na classe Trajeto
     //Fiquei na dúvida
     //@JoinColumn(nullable = false) - Retirado pois estava apresentando erro no BD
+    @JsonIgnore 
     @OneToMany(mappedBy = "cidade")
     private List<Localidade> localidade = new ArrayList<>();
 
