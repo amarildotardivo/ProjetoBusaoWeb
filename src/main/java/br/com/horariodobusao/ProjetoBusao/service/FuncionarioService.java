@@ -1,5 +1,6 @@
 package br.com.horariodobusao.ProjetoBusao.service;
 
+import br.com.horariodobusao.ProjetoBusao.exception.*;
 import br.com.horariodobusao.ProjetoBusao.model.*;
 import br.com.horariodobusao.ProjetoBusao.repository.*;
 import java.util.*;
@@ -25,7 +26,7 @@ public class FuncionarioService {
     public Funcionario findById(Long id){
         Optional<Funcionario> result = repo.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Funcionário não encontrado.");
+            throw new NotFoundException("Funcionário não encontrado.");
         }
         return result.get();
     }
@@ -54,6 +55,13 @@ public class FuncionarioService {
             f.setSenha(obj.getSenha());
             return repo.save(f);
         }catch(Exception e){
+            Throwable t = e;
+            while (t.getCause() != null){
+                t = t.getCause();
+                if(t instanceof javax.validation.ConstraintViolationException){
+                    throw ((javax.validation.ConstraintViolationException) t);
+                }
+            }
             throw new RuntimeException("Falha ao salvar Funcionário. " + e);
         }
     }

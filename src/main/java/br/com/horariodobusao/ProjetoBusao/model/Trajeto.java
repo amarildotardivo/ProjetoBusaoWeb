@@ -15,7 +15,7 @@ public class Trajeto implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false, updatable = false, unique = true, length = 100)
+    @Column(nullable = false, updatable = false, unique = false, length = 100)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Opção obrigatória.")
     private TipoOpcaoEnum opcao;

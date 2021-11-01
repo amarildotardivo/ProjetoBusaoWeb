@@ -1,8 +1,10 @@
 package br.com.horariodobusao.ProjetoBusao.service;
 
+import br.com.horariodobusao.ProjetoBusao.exception.*;
 import br.com.horariodobusao.ProjetoBusao.model.*;
 import br.com.horariodobusao.ProjetoBusao.repository.*;
 import java.util.*;
+import javax.validation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.*;
@@ -25,7 +27,7 @@ public class AdministradorService {
     public Administrador findById(Long id){
         Optional<Administrador> result = repo.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Administrador não encontrado.");
+            throw new NotFoundException("Administrador não encontrado.");
         }
         return result.get();
     }
@@ -54,6 +56,13 @@ public class AdministradorService {
             adm.setSenha(obj.getSenha());
             return repo.save(adm);
         }catch(Exception e){
+            Throwable t = e;
+            while (t.getCause() != null){
+                t = t.getCause();
+                if(t instanceof ConstraintViolationException){
+                    throw ((ConstraintViolationException) t);
+                }
+            }
             throw new RuntimeException("Falha ao salvar Administrador. " + e);
         }
     }

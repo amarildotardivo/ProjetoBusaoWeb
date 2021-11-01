@@ -1,5 +1,6 @@
 package br.com.horariodobusao.ProjetoBusao.service;
 
+import br.com.horariodobusao.ProjetoBusao.exception.*;
 import br.com.horariodobusao.ProjetoBusao.model.*;
 import br.com.horariodobusao.ProjetoBusao.repository.*;
 import java.util.*;
@@ -25,7 +26,7 @@ public class LinhaService {
     public Linha findById(Long id){
         Optional<Linha> result = repo.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Linha não encontrada.");
+            throw new NotFoundException("Linha não encontrada.");
         }
         return result.get();
     }

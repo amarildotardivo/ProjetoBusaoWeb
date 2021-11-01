@@ -1,5 +1,6 @@
 package br.com.horariodobusao.ProjetoBusao.service;
 
+import br.com.horariodobusao.ProjetoBusao.exception.*;
 import br.com.horariodobusao.ProjetoBusao.model.*;
 import br.com.horariodobusao.ProjetoBusao.repository.*;
 import java.util.*;
@@ -25,7 +26,7 @@ public class CidadeService {
     public Cidade findById(Long id){
         Optional<Cidade> result = repo.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Cidade não encontrada.");
+            throw new NotFoundException("Cidade não encontrada.");
         }
         return result.get();
     }
@@ -51,7 +52,7 @@ public class CidadeService {
         Cidade obj = findById(id);
         List<Localidade> loc = obj.getLocalidade();
         
-        verificaCidadeEmLocalidade(obj.getId(), loc);
+        verificaCidadeEmLocalidade(obj);
         
         try{
             repo.delete(obj);
@@ -60,11 +61,9 @@ public class CidadeService {
         }
     }
 
-    private void verificaCidadeEmLocalidade(Long idCidade, List<Localidade> loc) {
-        for(Localidade l : loc){
-            if(l.getCidade().getId() == idCidade){
-                throw new RuntimeException("Não é possível excluir a cidade, pois ela faz parte de 1 ou mais linhas!");
-            }
+    private void verificaCidadeEmLocalidade(Cidade c) {
+        if(c.getLocalidade().isEmpty()){
+            throw new RuntimeException("Não é possível excluir a cidade, pois ela faz parte de 1 ou mais linhas!");
         }
         
     }
