@@ -26,7 +26,7 @@ public class Cidade implements Serializable{
     //@JoinColumn(nullable = false) - Retirado pois estava apresentando erro no BD
     @JsonIgnore 
     @OneToMany(mappedBy = "cidade")
-    private List<Localidade> localidade = new ArrayList<>();
+    private List<Localidade> localidades = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -45,11 +45,11 @@ public class Cidade implements Serializable{
     }
 
     public List<Localidade> getLocalidade() {
-        return localidade;
+        return localidades;
     }
 
-    public void setLocalidade(List<Localidade> localidade) {
-        this.localidade = localidade;
+    public void setLocalidade(List<Localidade> localidades) {
+        this.localidades = localidades;
     }
 
     @Override

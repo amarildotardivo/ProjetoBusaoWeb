@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="imports-css(title)">
+        <title th:text="${title}">Horário do Busão</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{~/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" rel="stylesheet" />
+    </head>
+    <body>
+        <div th:fragment="barramenu(pagina)">
+            <div class="bg-dark">
+                <!-- Início do menu pricipal -->
+                <nav class="container navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="navbar-brand" href="/">
+                        <img th:src="@{~/imagens/logo-hb.png}" width="45" height="30" 
+                             class="d-inline-block align-top" alt="Logo Horário do Busão" />
+                        Horário do Busão
+                    </a>
+                    
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                            data-target="#textoNavbar" aria-controls="textoNavbar" 
+                            aria-expanded="false" aria-label="Alterna navegação" >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="textoNavbar">
+                        
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item" 
+                                th:classappend="${pagina == 'linhas' ? 'active' : ''}">
+                                <a class="nav-link" th:href="@{~/linhas}">Linhas</a>
+                            </li>
+                            <li class="nav-item" 
+                                th:classappend="${pagina == 'cidades' ? 'active' : ''}">
+                                <a class="nav-link" th:href="@{~/cidades}">Cidades</a>
+                            </li>
+                            <li class="nav-item" 
+                                th:classappend="${pagina == 'funcionarios' ? 'active' : ''}">
+                                <a class="nav-link" th:href="@{~/funcionarios}">Funcionarios</a>
+                            </li>
+                            <li class="nav-item" 
+                                th:classappend="${pagina == 'administradores' ? 'active' : ''}">
+                                <a class="nav-link" th:href="@{~/administradores}">Adm's</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </nav>
+                <!-- Término do menu pricipal -->
+            </div>
+        </div>
+        
+        <div th:fragment="imports-js">
+            <script th:src="@{~/webjars/jquery/3.5.1/jquery.min.js}"></script>
+            <script th:src="@{~/webjars/bootstrap/4.5.0/js/bootstrap.bundle.min.js}"></script>
+        </div>
+    </body>
+</html>

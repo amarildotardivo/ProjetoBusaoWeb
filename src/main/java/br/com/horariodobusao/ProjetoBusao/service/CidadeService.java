@@ -62,7 +62,7 @@ public class CidadeService {
     }
 
     private void verificaCidadeEmLocalidade(Cidade c) {
-        if(c.getLocalidade().isEmpty()){
+        if(!c.getLocalidade().isEmpty()){
             throw new RuntimeException("Não é possível excluir a cidade, pois ela faz parte de 1 ou mais linhas!");
         }
         

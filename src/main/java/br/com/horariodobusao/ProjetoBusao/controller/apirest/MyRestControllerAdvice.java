@@ -1,4 +1,4 @@
-package br.com.horariodobusao.ProjetoBusao.controller;
+package br.com.horariodobusao.ProjetoBusao.controller.apirest;
 
 import br.com.horariodobusao.ProjetoBusao.exception.Error;
 import br.com.horariodobusao.ProjetoBusao.exception.*;
