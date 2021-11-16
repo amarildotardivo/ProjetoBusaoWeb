@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragmentos :: imports-css(title='Cidades')}">
+        <title>...</title>
+    </head>
+    <body>
+        <div th:replace="~{fragmentos :: barramenu(pagina='cidades')}"></div>
+        
+        <div class="container" style="margin-top: 20px;">
+            <div class="card-header">
+                <h4>
+                    Cidades Cadastradas
+                    <a class="btn btn-primary float-right" th:href="@{~/cidades/cidade}" 
+                   role="button">Nova Cidade</a>
+                </h4>
+            </div>
+            
+            <div class="card" th:each="cidade : ${cidades}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="'Nome: '+${cidade.nome}"></h5>
+                </div>
+                <div class="card-body">
+                        <a th:href="@{'~/cidades/cidade/'+${cidade.id}}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{'~/cidades/'+${cidade.id}+'/deletar'}" class="btn btn-danger" 
+                           onclick="return confirm('Deseja realmente excluir essa Cidade?')">Excluir</a>
+                </div>
+            </div>
+        </div>
+        
+        <div th:replace="~{fragmentos :: imports-js}"></div>
+    </body>
+</html>

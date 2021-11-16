@@ -60,7 +60,7 @@ public class ProjetoBusaoApplication implements CommandLineRunner{
         
         //Trajeto
         Trajeto t1 = new Trajeto();
-//        t1.setLinha(l1);
+        //t1.setLinha(l1);
         t1.setOpcao(TipoOpcaoEnum.DIRETO);
         
         //linha
@@ -69,11 +69,11 @@ public class ProjetoBusaoApplication implements CommandLineRunner{
         //Localidade
         Localidade loc1 = new Localidade();
         loc1.setHorario(LocalTime.of(6, 35));
-//        loc1.setTrajeto(t1);  
+        //loc1.setTrajeto(t1);  
         
         Localidade loc2 = new Localidade();
         loc2.setHorario(LocalTime.of(9, 35));
-//        loc2.setTrajeto(t1);    
+        //loc2.setTrajeto(t1);    
         
         //Cidade
         Cidade c1 = new Cidade();

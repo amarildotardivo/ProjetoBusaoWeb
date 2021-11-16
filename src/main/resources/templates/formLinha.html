@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragmentos :: imports-css(title='Linha')}">
+        <title>...</title>
+    </head>
+    <body>
+        <div th:replace="~{fragmentos :: barramenu(pagina='linhas')}"></div>
+        
+        <div class="container" style="margin-top: 20px;">
+            <div class="card-header">
+                <h4>Cadastro de Linhas
+                <a class="btn btn-primary float-right" th:href="@{~/linhas}" role="button">Voltar</a>
+                </h4>
+            </div>
+            
+            <div th:replace="~{fragmentos :: mensagens}"></div>
+            
+            <form th:object="${linha}" th:action="@{~/linhas/linha/{id} (id=${linha.id})}"
+                method="post" class="card-body">
+                <input type="hidden" th:field="*{id}" />
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nome">Nome da Linha:</label>
+                        <input th:field="*{nomeLinha}" type="text" class="form-control" placeholder="Ex.: Cidade Origem X Cidade Destino" 
+                               required="required" maxlength="100" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="func">Criada por:</label>
+                        <input th:field="*{funcionario}" type="text" class="form-control" placeholder="Funcionário" 
+                               required="required" maxlength="100" />
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <label class="col">
+                        Trajetos: 
+                        <a id="addTraj" class="btn btn-outline-secondary btn-sm" role="button">&plus;</a>
+                        <a id="delTraj" class="btn btn-outline-secondary btn-sm" role="button">&minus;</a>
+                        
+                    </label>
+                </div>
+                
+                <div id="camposTrajetos" class="form-row">
+                    
+                </div>
+                
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-success" value="Salvar" />
+                </div>
+            </form>
+        </div>
+        
+        <div th:replace="~{fragmentos :: imports-js}"></div>
+    </body>
+</html>

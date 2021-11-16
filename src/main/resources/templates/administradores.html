@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragmentos :: imports-css(title='Administradores')}">
+        <title>...</title>
+    </head>
+    <body>
+        <div th:replace="~{fragmentos :: barramenu(pagina='administradores')}"></div>
+        
+        <div class="container" style="margin-top: 20px;">
+            <div class="card-header">
+                <h4>
+                    Administradores Cadastrados
+                    <a class="btn btn-primary float-right" th:href="@{~/administradores/administrador}" 
+                   role="button">Novo Administrador</a>
+                </h4>
+            </div>
+            
+            <div class="card" th:each="adm : ${administradores}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="'Nome: '+${adm.nome}"></h5>
+                    <div class="card-text" th:text="'Email: '+${adm.email}"></div>
+                    <div class="card-text" th:text="'Telefone: '+${adm.telefone}"></div>
+                    <div class="card-text" th:text="'CPF: '+${adm.cpf}"></div>
+                    <div class="card-text" th:text="'Endereço: '+${adm.endereco}"></div>
+                </div>
+                <div class="card-body">
+                        <a th:href="@{'~/administradores/administrador/'+${adm.id}}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{'~/administradores/'+${adm.id}+'/deletar'}" class="btn btn-danger" 
+                           onclick="return confirm('Deseja realmente excluir esse Administrador?')">Excluir</a>
+                </div>
+            </div>
+        </div>
+        
+        <div th:replace="~{fragmentos :: imports-js}"></div>
+    </body>
+</html>

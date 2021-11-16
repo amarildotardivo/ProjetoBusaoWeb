@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragmentos :: imports-css(title='Administradores')}">
+        <title>...</title>
+    </head>
+    <body>
+        <div th:replace="~{fragmentos :: barramenu(pagina='administradores')}"></div>
+        
+        <div class="container" style="margin-top: 20px;">
+            <div class="card-header">
+                <h4>Cadastrado de Administradores
+                    <a class="btn btn-primary float-right" th:href="@{~/administradores}" role="button">Voltar</a>
+                </h4>
+            </div>
+            
+            <div th:replace="~{fragmentos :: mensagens}"></div>
+            
+            <form th:object="${administrador}" th:action="@{~/administradores/administrador/{id}(id=${administrador.id})}"
+                  method="post" class="card card-body">
+                <input type="hidden" th:field="*{id}" />
+                
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="nome">Nome:</label>
+                        <input th:field="*{nome}" type="text" class="form-control" id="nome" placeholder="Nome"
+                               required="required" maxlength="100" minlength="3" /> 
+                    </div>
+                    
+                    <div class="form-group col-md-4">
+                        <label for="email">Email:</label>
+                        <input th:field="*{email}" type="text" class="form-control" id="email" placeholder="Email"
+                               required="required" maxlength="100" minlength="10" /> 
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="telefone">Telefone:</label>
+                        <input th:field="*{telefone}" type="text" class="form-control" id="telefone" placeholder="(99)99999-9999"
+                               required="required" maxlength="14" minlength="13" /> 
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="cpf">CPF:</label>
+                        <input th:field="*{cpf}" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}"
+                               type="text" class="form-control" id="cpf" placeholder="999.999.999-99"
+                               required="required" maxlength="14" minlength="14" /> 
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="endereco">Endereço:</label>
+                        <input th:field="*{endereco}" type="text" class="form-control" id="endereco" 
+                               placeholder="Rua Manoel das Couves, nº 05 - Alameda dos Anjos - Curitiba/PR"
+                               required="required" maxlength="200" /> 
+                    </div>
+                </div>
+                
+                <div class="form-row" th:if="${administrador.id==null}">
+                    <div class="form-group col-md-4">
+                        <label for="senha">Senha:</label>
+                        <input th:field="*{senha}" type="password" class="form-control" minlength="8" required="required" />
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="confirmarSenha">Confirmar Senha:</label>
+                        <input name="confirmarSenha" type="password" class="form-control" minlength="8" required="required" />
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-success" value="Salvar" />
+                </div>
+                
+            </form>
+            
+        </div>
+        
+        <div th:replace="~{fragmentos :: imports-js}"></div>
+    </body>
+</html>
