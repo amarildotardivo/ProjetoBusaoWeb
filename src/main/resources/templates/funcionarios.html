@@ -17,7 +17,7 @@
             
             <div class="card" th:each="func : ${funcionarios}">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="'Nome: '+${func.nome}"></h5>
+                    <h5 class="card-title" th:text="${func.nome}"></h5>
                     <div class="card-text" th:text="'Email: '+${func.email}"></div>
                     <div class="card-text" th:text="'Telefone: '+${func.telefone}"></div>
                     <div class="card-text" th:text="'CPF: '+${func.cpf}"></div>

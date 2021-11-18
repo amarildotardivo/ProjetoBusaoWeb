@@ -17,7 +17,7 @@
             
             <div class="card" th:each="cidade : ${cidades}">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="'Nome: '+${cidade.nome}"></h5>
+                    <h5 class="card-title" th:text="${cidade.nome}"></h5>
                 </div>
                 <div class="card-body">
                         <a th:href="@{'~/cidades/cidade/'+${cidade.id}}" class="btn btn-warning">Editar</a>

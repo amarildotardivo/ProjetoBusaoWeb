@@ -17,7 +17,7 @@
             
             <div class="card" th:each="adm : ${administradores}">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="'Nome: '+${adm.nome}"></h5>
+                    <h5 class="card-title" th:text="${adm.nome}"></h5>
                     <div class="card-text" th:text="'Email: '+${adm.email}"></div>
                     <div class="card-text" th:text="'Telefone: '+${adm.telefone}"></div>
                     <div class="card-text" th:text="'CPF: '+${adm.cpf}"></div>

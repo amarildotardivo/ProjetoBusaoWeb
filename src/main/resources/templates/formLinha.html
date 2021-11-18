@@ -34,17 +34,26 @@
                 </div>
                 
                 <div class="form-row">
-                    <label class="col">
-                        Trajetos: 
+                    <label class="col">Trajetos: 
                         <a id="addTraj" class="btn btn-outline-secondary btn-sm" role="button">&plus;</a>
                         <a id="delTraj" class="btn btn-outline-secondary btn-sm" role="button">&minus;</a>
-                        
                     </label>
                 </div>
-                
                 <div id="camposTrajetos" class="form-row">
-                    
+                    <div th:each="traj, i : *{trajetos}" class="form-group col-md-3" th:id="${'trajetos'+ i.index}">
+                        <div class="form-row">
+                            <label>Opção:</label>
+                            <select class="form-control form-control-sm" th:field="*{trajetos[__${i.index}__].opcao}" required="required">
+                                <option th:each="t : ${T(br.com.horariodobusao.ProjetoBusao.model.TipoOpcaoEnum).values()}" th:value="${t}" th:text="${t}">content</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
+                <!-- 
+                Não consegui fazer a iteração de linha, 
+                vou continuar tentando implementar, mas infelizmente não conseguirei a tempo! 
+                -->
+
                 
                 <div class="card-footer">
                     <input type="submit" class="btn btn-success" value="Salvar" />
@@ -53,5 +62,43 @@
         </div>
         
         <div th:replace="~{fragmentos :: imports-js}"></div>
+       
+        <script>
+             $(document).ready(function () {
+                $("#addTraj").on("click", function () {
+                    var count = 0;
+                    $("#camposTrajetos").find("input").each(function (index, element) {
+                        count++;
+                    });
+                    /*var str = '<div id="trajetos' + count + '" class="form-group col-md-3"><input name="telefones[' + count + '].opcao" type="tel" maxlength="14" class="form-control" required="required"/></div>';
+                    */
+                    var str = ' <div class="form-row"><label for="op">Opção:</label> <select class="form-control form-control-sm" name="trajetos['+ count +'].opcao}" required="required"> <option name="t : ${T(br.com.horariodobusao.ProjetoBusao.model.TipoOpcaoEnum).values()}" th:value="${t}" th:text="${t}">content</option></select></div>'
+    
+                    $("#camposTrajetos").append(str);
+                });
+                $("#delTraj").on("click", function () {
+                    var e = $("#camposTrajetos").find("div").last();
+                    e.remove();
+                });
+                
+                /*
+                $("#addQuarto").on("click", function () {
+                    var count = 0;
+                    count = $("#camposQuartos").find("[id*='divQuarto']").length;
+                    var str = '<div id="divQuarto' + count + '" class="card col-md-3"><div class="card-body"><input class="form-control form-control-sm" name="quartos[' + count + '].numero" type="number" min="1" max="9999" placeholder="número" required="required"/><select class="form-control form-control-sm" name="quartos[' + count + '].tipo" required="required">';
+                    $("#camposQuartos").find("[type='hidden']").each(function (index, element) {
+                        str += "<option value=" + $(element).attr('value') + " >" + $(element).attr('value') + "</option>";
+                    });
+                    str += '</select>';
+                    str += '<div class="form-row"><div class="col-md-2"><img src="../../imagens/cama_solteiro.png" width="20" height="20"/></div><div class="col-md-4"><input class="form-control form-control-sm" name="quartos[' + count + '].qtdCamaSolteiro" type="number" min="0" max="4" width="10px" required="required"/></div><div class="col-md-2"><img src="../../imagens/cama_casal.png" width="20" height="20"/></div><div class="col-md-4"><input class="form-control form-control-sm" name="quartos[' + count + '].qtdCamaCasal" type="number" min="0" max="2" required="required"/></div></div>';
+                    $("#camposQuartos").append(str);
+                });
+                $("#delQuarto").on("click", function () {
+                    var e = $("#camposQuartos").find("[id*='divQuarto']").last();
+                    e.remove();
+                });   */          
+            });
+        </script>
+       
     </body>
 </html>

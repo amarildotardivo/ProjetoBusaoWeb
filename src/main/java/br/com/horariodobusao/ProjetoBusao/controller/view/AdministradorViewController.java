@@ -50,7 +50,7 @@ public class AdministradorViewController {
             service.save(adm);
             model.addAttribute("msgSucesso", "Administrador cadastrado com sucesso!");
             model.addAttribute("administrador", new Administrador());
-            return "formAdmnistrador";
+            return "formAdministrador";
         }catch(Exception e){
             model.addAttribute("msgErros", new ObjectError("administrador", e.getMessage()));
             return "formAdministrador";
@@ -87,7 +87,7 @@ public class AdministradorViewController {
             service.update(adm, "", "", "");
             model.addAttribute("msgSucesso", "Administrador atualizado com sucesso!");
             model.addAttribute("administrador", adm);
-            return "formAdmnistrador";
+            return "formAdministrador";
         }catch(Exception e){
             model.addAttribute("msgErros", new ObjectError("administrador", e.getMessage()));
             return "formAdministrador";

@@ -24,7 +24,6 @@
                 </div>
                 
                 <div class="card-body">
-                    <a th:href="@{~/linhas/{idLinha}/trajetos(idLinha=${linha.id})}" class="btn btn-success">Trajetos</a>
                     <a th:href="@{'~/linhas/linha/'+${linha.id}}" class="btn btn-warning">Editar</a>
                     <a th:href="@{'~/linhas/'+${linha.id}+'/deletar'}" class="btn btn-danger" 
                        onclick="return confirm('Deseja realmente excluir essa linha?')">Excluir</a>

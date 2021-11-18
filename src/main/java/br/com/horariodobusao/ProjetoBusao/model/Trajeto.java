@@ -1,6 +1,5 @@
 package br.com.horariodobusao.ProjetoBusao.model;
 
-import com.fasterxml.jackson.annotation.*;
 import java.util.*;
 import java.io.Serializable;
 import javax.persistence.*;
