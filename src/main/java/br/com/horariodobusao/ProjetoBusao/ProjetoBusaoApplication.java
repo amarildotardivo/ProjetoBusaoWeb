@@ -7,6 +7,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.*;
 
 @SpringBootApplication
 public class ProjetoBusaoApplication implements CommandLineRunner{
@@ -19,6 +20,8 @@ public class ProjetoBusaoApplication implements CommandLineRunner{
     private LinhaRepository linhaRepo;
     @Autowired
     private CidadeRepository cidadeRepo;
+    @Autowired
+    private PermissaoRepository permissaoRepo;
     
     
 	public static void main(String[] args) {
@@ -27,12 +30,19 @@ public class ProjetoBusaoApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
+        //Permissões
+        Permissao p1 = new Permissao();
+        p1.setNome("ADMIN");
+        Permissao p2 = new Permissao();
+        p2.setNome("FUNC");
+        permissaoRepo.saveAll(List.of(p1, p2));
         
         //Administrador
         Administrador a1 = new Administrador();
+        a1.setPermissoes(List.of(p1));
         a1.setNome("Amarildo");
         a1.setEmail("amarildo@gmail.com");
-        a1.setSenha("$Rauto19083");
+        a1.setSenha(new BCryptPasswordEncoder().encode("$Rauto19083"));
         a1.setEndereco("Rua Lyra Reis Salles, 91 - Centro - Italva");
         a1.setCpf("814.117.733-81");
         a1.setTelefone("(22)99999-9999");
@@ -41,9 +51,10 @@ public class ProjetoBusaoApplication implements CommandLineRunner{
 
         //Funcionario
         Funcionario f1 = new Funcionario();
+        f1.setPermissoes(List.of(p2,p1));
         f1.setNome("Mateus");
         f1.setEmail("mateus@gmail.com");
-        f1.setSenha("$Rteste19083");
+        f1.setSenha(new BCryptPasswordEncoder().encode("$Rteste19083"));
         f1.setEndereco("Rua Lyra Reis Salles, 91 - Centro - Italva");
         f1.setCpf("869.250.850-01");
         f1.setTelefone("(22)99854-9159");

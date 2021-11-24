@@ -6,6 +6,7 @@ import br.com.horariodobusao.ProjetoBusao.repository.*;
 import java.util.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.*;
+import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.stereotype.*;
 
 @Service
@@ -35,7 +36,11 @@ public class FuncionarioService {
         //verifica se cpf ou email estão cadastrados
         verificaCpfEmailCadastrado(f.getCpf(), f.getEmail());
         
+        //verifica permissões nulas
+        removePermissoesNulas(f);
+        
         try{
+            f.setSenha(new BCryptPasswordEncoder().encode(f.getSenha() ) );
             return repo.save(f);
         }catch(Exception e){
             throw new RuntimeException("Falha ao salvar Funcionário. " + e);
@@ -45,6 +50,9 @@ public class FuncionarioService {
     public Funcionario update(Funcionario f, String senhaAtual, String novaSenha, String confirmarNovaSenha){
         //Verifica se funcionario já existe
         Funcionario obj = findById(f.getId());
+        
+        //verifica permissões nulas
+        removePermissoesNulas(f);
         
         //Verifica alteração de senha
         alterarSenha(obj, senhaAtual, novaSenha, confirmarNovaSenha);
@@ -94,7 +102,7 @@ public class FuncionarioService {
             if(!novaSenha.equals(confirmarNovaSenha)){
                 throw new RuntimeException("Nova Senha e Confirmar Nova Senha, não são iguais!");
             }
-            obj.setSenha(novaSenha);
+            obj.setSenha(new BCryptPasswordEncoder().encode(novaSenha) );
         }
     }
     
@@ -105,6 +113,16 @@ public class FuncionarioService {
         
         if(func.size() < 2){
             throw new RuntimeException("Não é possível excluir o Funcionário, pois só existe 1 Funcionário. Crie outro Funcionário para realizar esta exclusão.");
+        }
+    }
+    
+    public void removePermissoesNulas(Funcionario f){
+        f.getPermissoes().removeIf((Permissao p) -> {
+            return p.getId() == null;
+        });
+        
+        if(f.getPermissoes().isEmpty()){
+            throw new RuntimeException("Funcionário deve ter no mínimo 1 permissão!");
         }
     }
 }

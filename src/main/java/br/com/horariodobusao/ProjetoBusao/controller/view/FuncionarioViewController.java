@@ -1,6 +1,7 @@
 package br.com.horariodobusao.ProjetoBusao.controller.view;
 
 import br.com.horariodobusao.ProjetoBusao.model.*;
+import br.com.horariodobusao.ProjetoBusao.repository.*;
 import br.com.horariodobusao.ProjetoBusao.service.*;
 import java.util.*;
 import javax.validation.*;
@@ -16,6 +17,9 @@ public class FuncionarioViewController {
     @Autowired
     private FuncionarioService service;
     
+    @Autowired
+    private PermissaoRepository permissaoRepo;
+    
     @GetMapping
     public String getAll(Model model){
         model.addAttribute("funcionarios", service.findAll());
@@ -25,6 +29,7 @@ public class FuncionarioViewController {
     @GetMapping(path="/funcionario")
     public String cadastro(Model model){
         model.addAttribute("funcionario", new Funcionario());
+        model.addAttribute("permissoes", permissaoRepo.findAll());
         return "formFuncionario";
     }
     
@@ -33,6 +38,9 @@ public class FuncionarioViewController {
             BindingResult result,
             @RequestParam("confirmarSenha") String confirmarSenha,
             Model model){
+        
+        //Valores a serem retornados
+        model.addAttribute("permissoes", permissaoRepo.findAll());
         
         if(result.hasErrors()){
             model.addAttribute("msgErros", result.getAllErrors());
@@ -60,6 +68,7 @@ public class FuncionarioViewController {
     @GetMapping(path="/funcionario/{id}")
     public String atualizacao(@PathVariable("id") Long id, Model model){
         model.addAttribute("funcionario", service.findById(id));
+        model.addAttribute("permissoes", permissaoRepo.findAll());
         return "formFuncionario";
     }
     
@@ -68,6 +77,9 @@ public class FuncionarioViewController {
             BindingResult result,
             @PathVariable("id") Long id,
             Model model){
+        
+        //Valores a serem retornados
+        model.addAttribute("permissoes", permissaoRepo.findAll());
         
         List<FieldError> list = new ArrayList<>();
         for(FieldError fe : result.getFieldErrors()){

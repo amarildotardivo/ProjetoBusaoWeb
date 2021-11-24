@@ -1,6 +1,7 @@
 package br.com.horariodobusao.ProjetoBusao.controller.view;
 
 import br.com.horariodobusao.ProjetoBusao.model.*;
+import br.com.horariodobusao.ProjetoBusao.repository.*;
 import br.com.horariodobusao.ProjetoBusao.service.*;
 import java.util.*;
 import javax.validation.*;
@@ -16,6 +17,9 @@ public class AdministradorViewController {
     @Autowired
     private AdministradorService service;
     
+    @Autowired
+    private PermissaoRepository permissaoRepo;
+    
     @GetMapping
     public String getAll(Model model){
         model.addAttribute("administradores", service.findAll());
@@ -25,6 +29,7 @@ public class AdministradorViewController {
     @GetMapping(path="/administrador")
     public String cadastro(Model model){
         model.addAttribute("administrador", new Administrador());
+        model.addAttribute("permissoes", permissaoRepo.findAll());
         return "formAdministrador";
     }
     
@@ -33,6 +38,9 @@ public class AdministradorViewController {
             BindingResult result,
             @RequestParam("confirmarSenha") String confirmarSenha,
             Model model){
+        
+        //Valores a serem retornados
+        model.addAttribute("permissoes", permissaoRepo.findAll());
         
         if(result.hasErrors()){
             model.addAttribute("msgErros", result.getAllErrors());
@@ -60,6 +68,7 @@ public class AdministradorViewController {
     @GetMapping(path="/administrador/{id}")
     public String atualizacao(@PathVariable("id") Long id, Model model){
         model.addAttribute("administrador", service.findById(id));
+        model.addAttribute("permissoes", permissaoRepo.findAll());
         return "formAdministrador";
     }
     
@@ -68,6 +77,9 @@ public class AdministradorViewController {
             BindingResult result,
             @PathVariable("id") Long id,
             Model model){
+        
+        //Valores a serem retornados
+        model.addAttribute("permissoes", permissaoRepo.findAll());
         
         List<FieldError> list = new ArrayList<>();
         for(FieldError fe : result.getFieldErrors()){

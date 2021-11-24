@@ -7,6 +7,7 @@ import java.util.*;
 import javax.validation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.*;
+import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.stereotype.*;
 
 @Service
@@ -36,6 +37,9 @@ public class AdministradorService {
         //verifica se cpf ou email estão cadastrados
         verificaCpfEmailCadastrado(adm.getCpf(), adm.getEmail());
         
+        //verifica permissões nulas
+        removePermissoesNulas(adm);
+        
         try{
             return repo.save(adm);
         }catch(Exception e){
@@ -46,6 +50,9 @@ public class AdministradorService {
     public Administrador update(Administrador adm, String senhaAtual, String novaSenha, String confirmarNovaSenha){
         //Verifica se funcionario já existe
         Administrador obj = findById(adm.getId());
+        
+        //verifica permissões nulas
+        removePermissoesNulas(adm);
         
         //Verifica alteração de senha
         alterarSenha(obj, senhaAtual, novaSenha, confirmarNovaSenha);
@@ -96,7 +103,7 @@ public class AdministradorService {
             if(!novaSenha.equals(confirmarNovaSenha)){
                 throw new RuntimeException("Nova Senha e Confirmar Nova Senha, não são iguais!");
             }
-            obj.setSenha(novaSenha);
+            obj.setSenha(new BCryptPasswordEncoder().encode(novaSenha) );
         }
     } 
     
@@ -107,6 +114,16 @@ public class AdministradorService {
         
         if(adms.size() < 2){
             throw new RuntimeException("Não é possível excluir o Administrador, pois só existe 1 Administrador. Crie outro Administrador para realizar esta exclusão.");
+        }
+    }
+    
+    public void removePermissoesNulas(Administrador adm){
+        adm.getPermissoes().removeIf((Permissao p) -> {
+            return p.getId() == null;
+        });
+        
+        if(adm.getPermissoes().isEmpty()){
+            throw new RuntimeException("Administrador deve ter no mínimo 1 permissão!");
         }
     }
 }
