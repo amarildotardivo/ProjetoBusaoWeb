@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragmentos :: imports-css(title='404 - Página não encontrada')}">
+        <title>...</title>
+    </head>
+    <body>
+        <div th:replace="~{fragmentos :: barramenu(pagina='linhas')}"></div>
+        
+        <div class="container" align="center" style="margin-top: 30px;">
+            <h3>Poxa! Página não encontrada!</h3>
+            <a class="btn btn-primary" style="margin-top: 30px;" th:href="@{~/}" role="button">Voltar</a>
+        </div>
+        
+        <div th:replace="~{fragmentos :: imports-js}"></div>
+    </body>
+</html>

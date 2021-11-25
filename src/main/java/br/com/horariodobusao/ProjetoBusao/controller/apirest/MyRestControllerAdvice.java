@@ -11,7 +11,7 @@ import javax.validation.ConstraintViolation;
 import org.springframework.validation.*;
 import org.springframework.web.bind.*;
 
-@RestControllerAdvice
+@RestControllerAdvice(annotations = RestController.class)
 public class MyRestControllerAdvice {
     
     @ExceptionHandler(ConstraintViolationException.class)
