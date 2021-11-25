@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head th:fragment="imports-css(title)">
         <title th:text="${title}">Horário do Busão</title>
         <meta charset="UTF-8" />
@@ -35,15 +36,23 @@
                                 <a class="nav-link" th:href="@{~/cidades}">Cidades</a>
                             </li>
                             <li class="nav-item" 
-                                th:classappend="${pagina == 'funcionarios' ? 'active' : ''}">
+                                th:classappend="${pagina == 'funcionarios' ? 'active' : ''}"
+                                sec:authorize="hasRole('ROLE_FUNC')">
                                 <a class="nav-link" th:href="@{~/funcionarios}">Funcionarios</a>
                             </li>
                             <li class="nav-item" 
-                                th:classappend="${pagina == 'administradores' ? 'active' : ''}">
+                                th:classappend="${pagina == 'administradores' ? 'active' : ''}"
+                                sec:authorize="hasRole('ROLE_ADMIN')">
                                 <a class="nav-link" th:href="@{~/administradores}">Adm's</a>
                             </li>
+                            <li class="nav-item" 
+                                th:classappend="${pagina == 'meusdados' ? 'active' : ''}">
+                                <a class="nav-link" th:href="@{~/funcionarios/meusdados}">Meus Dados</a>
+                            </li>
                         </ul>
-
+                        
+                        <a sec:authorize="isAuthenticated()" class="btn btn-outline-danger" style="float:right;"
+                           th:href="@{~/logout}" role="button">Sair</a>
                     </div>
                 </nav>
                 <!-- Término do menu pricipal -->

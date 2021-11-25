@@ -8,6 +8,8 @@ import javax.validation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.core.annotation.*;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.ui.*;
 import org.springframework.validation.*;
 
@@ -110,5 +112,54 @@ public class FuncionarioViewController {
     public String deletar(@PathVariable("id") Long id){
         service.delete(id);
         return "redirect:/funcionarios";
+    }
+    
+    //--------- Meus Dados -------------
+    @GetMapping(path="/meusdados")
+    public String getMeusDados(@AuthenticationPrincipal User user, Model model){
+        Funcionario funcionario = service.findByEmail(user.getUsername());
+        model.addAttribute("funcionario", funcionario);
+        model.addAttribute("url", "funcionarios");
+        return "formMeusDados";
+    }
+    
+    @PostMapping(path="/meusdados")
+    public String updateMeusDados(
+            @Valid @ModelAttribute Funcionario funcionario, 
+            BindingResult result,
+            @AuthenticationPrincipal User user,
+            @RequestParam("senhaAtual") String senhaAtual,
+            @RequestParam("novaSenha") String novaSenha,
+            @RequestParam("confirmarNovaSenha") String confirmarNovaSenha,
+            Model model){
+        
+        
+        List<FieldError> list = new ArrayList<>();
+        for(FieldError fe : result.getFieldErrors()){
+            if(!fe.getField().equals("senha") && !fe.getField().equals("permissoes")){
+                list.add(fe);
+            }
+        }
+        
+        if(!list.isEmpty()){
+            model.addAttribute("msgErros", list);
+            return "formMeusDados";
+        }
+        
+        Funcionario funcionarioBD = service.findByEmail(user.getUsername());
+        if(!funcionarioBD.getId().equals(funcionario.getId())){
+            throw new RuntimeException("Acesso Negado!");
+        }        
+        
+        try{
+            funcionario.setPermissoes(funcionarioBD.getPermissoes());
+            service.update(funcionario, senhaAtual, novaSenha, confirmarNovaSenha);
+            model.addAttribute("msgSucesso", "Funcionario atualizado com sucesso!");
+            model.addAttribute("funcionario", funcionario);
+            return "formMeusDados";
+        }catch(Exception e){
+            model.addAttribute("msgErros", new ObjectError("funcionario", e.getMessage()));
+            return "formMeusDados";
+        }
     }
 }

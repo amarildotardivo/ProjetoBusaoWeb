@@ -42,7 +42,7 @@ public class ProjetoBusaoApplication implements CommandLineRunner{
         a1.setPermissoes(List.of(p1));
         a1.setNome("Amarildo");
         a1.setEmail("amarildo@gmail.com");
-        a1.setSenha(new BCryptPasswordEncoder().encode("$Rauto19083"));
+        a1.setSenha(new BCryptPasswordEncoder().encode("$Rau1998"));
         a1.setEndereco("Rua Lyra Reis Salles, 91 - Centro - Italva");
         a1.setCpf("814.117.733-81");
         a1.setTelefone("(22)99999-9999");
@@ -51,7 +51,7 @@ public class ProjetoBusaoApplication implements CommandLineRunner{
 
         //Funcionario
         Funcionario f1 = new Funcionario();
-        f1.setPermissoes(List.of(p2,p1));
+        f1.setPermissoes(List.of(p1, p2));
         f1.setNome("Mateus");
         f1.setEmail("mateus@gmail.com");
         f1.setSenha(new BCryptPasswordEncoder().encode("$Rteste19083"));

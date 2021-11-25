@@ -25,6 +25,10 @@ public class AdministradorService {
         return repo.findAll();
     }
     
+    public Administrador findByEmail(String email){
+        return repo.findByEmail(email);
+    }
+    
     public Administrador findById(Long id){
         Optional<Administrador> result = repo.findById(id);
         if(result.isEmpty()){
@@ -96,8 +100,9 @@ public class AdministradorService {
     }
     
     private void alterarSenha(Administrador obj, String senhaAtual, String novaSenha, String confirmarNovaSenha){
+        BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
         if(!senhaAtual.isBlank() && !novaSenha.isBlank() && !confirmarNovaSenha.isBlank()){
-            if(senhaAtual.equals(obj.getSenha())){
+            if(!crypt.matches(novaSenha, obj.getSenha())){
                 throw new RuntimeException("Senha atual está incorreta!");
             }
             if(!novaSenha.equals(confirmarNovaSenha)){

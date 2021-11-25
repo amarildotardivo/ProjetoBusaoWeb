@@ -24,6 +24,10 @@ public class FuncionarioService {
         return repo.findAll();
     }
     
+    public Funcionario findByEmail(String email){
+        return repo.findByEmail(email);
+    }
+    
     public Funcionario findById(Long id){
         Optional<Funcionario> result = repo.findById(id);
         if(result.isEmpty()){
@@ -95,8 +99,9 @@ public class FuncionarioService {
     }
     
     private void alterarSenha(Funcionario obj, String senhaAtual, String novaSenha, String confirmarNovaSenha){
+        BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
         if(!senhaAtual.isBlank() && !novaSenha.isBlank() && !confirmarNovaSenha.isBlank()){
-            if(senhaAtual.equals(obj.getSenha())){
+            if(!crypt.matches(novaSenha, obj.getSenha()) ){
                 throw new RuntimeException("Senha atual está incorreta!");
             }
             if(!novaSenha.equals(confirmarNovaSenha)){
